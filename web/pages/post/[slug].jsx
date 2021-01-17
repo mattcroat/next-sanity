@@ -1,19 +1,47 @@
+import styled from '@emotion/styled'
 import BlockContent from '@sanity/block-content-to-react'
 
 import sanityClient, { imageBuilder } from '../../lib/sanity'
 
 export default function Post({
-  post: { title, mainImage, body, publishedAt },
+  post: { title, mainImage, body, publishedAt, keywords },
 }) {
   return (
-    <article>
+    <Article>
       <h1>{title}</h1>
-      <p>{new Date(publishedAt).toDateString()}</p>
+      <span>{new Date(publishedAt).toDateString()}</span>
       <img src={imageBuilder.image(mainImage).url()} alt={title} />
-      <BlockContent blocks={body} />
-    </article>
+      <BlockContent blocks={body} {...sanityClient.config()} />
+      <Keywords>
+        {keywords.map((keyword) => (
+          <Keyword key={keyword}>{keyword}</Keyword>
+        ))}
+      </Keywords>
+    </Article>
   )
 }
+
+const Article = styled.article`
+  max-width: 80ch;
+  margin: 0 auto;
+`
+
+const Keywords = styled.div`
+  font-size: 1rem;
+  margin: 3rem 0;
+`
+
+const Keyword = styled.div`
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+  color: saddlebrown;
+  background-color: peachpuff;
+  padding: 1rem;
+  margin-right: 1rem;
+  border-radius: 4px;
+`
 
 export async function getStaticProps({ params }) {
   const { slug } = params
@@ -24,7 +52,8 @@ export async function getStaticProps({ params }) {
       title,
       mainImage,
       body,
-      publishedAt
+      publishedAt,
+      keywords
     }
   `)
 

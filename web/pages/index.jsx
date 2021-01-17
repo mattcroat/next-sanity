@@ -1,10 +1,11 @@
+import styled from '@emotion/styled'
 import Link from 'next/link'
 
 import sanityClient from '../lib/sanity'
 
 export default function Index({ posts }) {
   return (
-    <div>
+    <Container>
       <h1>Posts</h1>
       <ul>
         {posts.map(({ _id, title, slug, publishedAt }) => (
@@ -16,9 +17,14 @@ export default function Index({ posts }) {
           </li>
         ))}
       </ul>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.main`
+  max-width: 800px;
+  margin: 4rem auto;
+`
 
 export async function getStaticProps() {
   const posts = await sanityClient.fetch(`
