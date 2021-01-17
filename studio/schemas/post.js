@@ -7,45 +7,68 @@ export default {
       name: 'title',
       title: 'Title',
       type: 'string',
+      description: 'Used as the main title',
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Used as the post URL',
       options: {
         source: 'title',
         maxLength: 96,
       },
     },
     {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: { type: 'author' },
-    },
-    {
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Image',
       type: 'image',
+      description: 'The main hero image',
       options: {
         hotspot: true,
       },
-    },
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
+      fields: [
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+          description: 'Used as the description',
+          options: {
+            isHighlighted: true,
+          },
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO and accessiblity',
+          options: {
+            isHighlighted: true,
+          },
+        },
+      ],
     },
     {
       name: 'publishedAt',
-      title: 'Published at',
+      title: 'Published',
       type: 'datetime',
+      description: 'Time when the post was published',
     },
     {
       name: 'body',
-      title: 'Body',
+      title: 'Content',
       type: 'blockContent',
+      description: 'Write your post here',
+    },
+    {
+      name: 'keywords',
+      type: 'array',
+      title: 'Keywords',
+      description: 'Enter some unique keywords used for search',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
     },
   ],
 
