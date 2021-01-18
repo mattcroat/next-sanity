@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import BlockContent from '@sanity/block-content-to-react'
 
-import sanityClient, { imageBuilder } from '../../lib/sanity'
+import sanityClient, { imageBuilder } from '@/root/lib/sanity'
 
 export default function Post({
   post: { title, mainImage, body, publishedAt, keywords },
