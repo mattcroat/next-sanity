@@ -1,17 +1,30 @@
 import styled from '@emotion/styled'
 import BlockContent from '@sanity/block-content-to-react'
 
-import sanityClient, { imageBuilder } from '@/root/lib/sanity'
+import sanityClient, { urlFor } from '@/root/lib/sanity'
+
+// todo: add serializer for youtube embed
 
 export default function Post({
-  post: { title, mainImage, body, publishedAt, keywords },
+  post: { title, mainImage, ingredients, body, publishedAt, keywords },
 }) {
   return (
     <Article>
       <h1>{title}</h1>
       <span>{new Date(publishedAt).toDateString()}</span>
-      <img src={imageBuilder.image(mainImage).url()} alt={title} />
+      <img src={urlFor(mainImage).url()} alt={title} />
+
+      <h2>Ingredients</h2>
+      <Ingredients>
+        {ingredients.map(({ _key, amount, unit, ingredient }) => (
+          <Ingredient key={_key}>
+            {amount} {unit} of {ingredient}
+          </Ingredient>
+        ))}
+      </Ingredients>
+
       <BlockContent blocks={body} {...sanityClient.config()} />
+
       <Keywords>
         {keywords.map((keyword) => (
           <Keyword key={keyword}>{keyword}</Keyword>
@@ -24,6 +37,16 @@ export default function Post({
 const Article = styled.article`
   max-width: 80ch;
   margin: 0 auto;
+`
+
+const Ingredients = styled.ul`
+  list-style: none;
+`
+
+const Ingredient = styled.li`
+  &::marker {
+    content: ' 🥕 ';
+  }
 `
 
 const Keywords = styled.div`
@@ -51,9 +74,10 @@ export async function getStaticProps({ params }) {
       _id,
       title,
       mainImage,
+      ingredients,
       body,
       publishedAt,
-      keywords
+      keywords,
     }
   `)
 
