@@ -8,7 +8,10 @@ const options = {
 }
 
 const client = sanityClient(options)
+const imageUrlBuilder = sanityImage(client)
 
-export const imageBuilder = sanityImage(client)
+export function urlFor(source) {
+  return imageUrlBuilder.image(source)
+}
 
 export default client
