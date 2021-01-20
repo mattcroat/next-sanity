@@ -68,7 +68,6 @@ export default {
               name: 'amount',
               title: 'Amount',
               type: 'string',
-              validation: (Rule) => Rule.required().error(),
             },
             {
               name: 'unit',
