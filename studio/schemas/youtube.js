@@ -3,7 +3,7 @@ import { YouTubePreview } from '../components/YouTubePreview'
 export default {
   name: 'youtube',
   type: 'object',
-  title: 'YouTube embed',
+  title: 'YouTube',
   fields: [
     {
       name: 'url',
