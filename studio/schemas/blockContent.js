@@ -40,5 +40,8 @@ export default {
     {
       type: 'youtube',
     },
+    {
+      type: 'step',
+    },
   ],
 }
