@@ -1,7 +1,7 @@
 import sanityClient from '@sanity/client'
 import sanityImage from '@sanity/image-url'
 
-import { getYouTubeId } from '@/root/helpers'
+import { getYouTubeId } from '@/root/utils'
 
 const options = {
   dataset: 'production',

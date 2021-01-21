@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getYouTubeId } from '../helpers'
+import { getYouTubeId } from '../utils'
 
 export function YouTubePreview({ value }) {
   const id = getYouTubeId(value.url)
