@@ -1,34 +1,42 @@
 import styled from '@emotion/styled'
-import BlockContent from '@sanity/block-content-to-react'
+import PortableText from '@sanity/block-content-to-react'
 
-import sanityClient, { urlFor } from '@/root/lib/sanity'
-
-// todo: add serializer for youtube embed
+import sanityClient, { serializers, urlFor } from '@/root/lib/sanity'
 
 export default function Post({
   post: { title, mainImage, ingredients, body, publishedAt, keywords },
 }) {
+  const time = new Date(publishedAt).toDateString()
+  const src = urlFor(mainImage).url()
+
   return (
     <Article>
       <h1>{title}</h1>
-      <span>{new Date(publishedAt).toDateString()}</span>
-      <img src={urlFor(mainImage).url()} alt={title} />
+      <span>{time}</span>
+      <img src={src} alt={title} />
 
-      <h2>Ingredients</h2>
-      <Ingredients>
-        {ingredients.map(({ _key, amount, unit, ingredient }) => (
-          <Ingredient key={_key}>
-            {amount} {unit} of {ingredient}
-          </Ingredient>
-        ))}
-      </Ingredients>
+      {ingredients && (
+        <>
+          <h2>Ingredients</h2>
+          <Ingredients>
+            {ingredients.map(({ _key, amount, unit, ingredient }) => (
+              <Ingredient key={_key}>
+                {amount} {unit} of {ingredient}
+              </Ingredient>
+            ))}
+          </Ingredients>
+        </>
+      )}
 
-      <BlockContent blocks={body} {...sanityClient.config()} />
+      <PortableText
+        blocks={body}
+        serializers={serializers}
+        {...sanityClient.config()}
+      />
 
       <Keywords>
-        {keywords.map((keyword) => (
-          <Keyword key={keyword}>{keyword}</Keyword>
-        ))}
+        {keywords &&
+          keywords.map((keyword) => <Keyword key={keyword}>{keyword}</Keyword>)}
       </Keywords>
     </Article>
   )
