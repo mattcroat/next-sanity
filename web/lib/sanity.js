@@ -1,7 +1,8 @@
 import sanityClient from '@sanity/client'
 import sanityImage from '@sanity/image-url'
 
-import { getYouTubeId } from '@/root/utils'
+import { Step } from '@/root/components/Step'
+import { YouTubePreview } from '@/root/components/YouTubePreview'
 
 const options = {
   dataset: 'production',
@@ -14,21 +15,10 @@ const imageUrlBuilder = sanityImage(client)
 
 export const serializers = {
   types: {
-    youtube: ({ node: { url } }) => {
-      const videoId = getYouTubeId(url)
-
-      return (
-        <iframe
-          title="YouTube Preview"
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${videoId}`}
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      )
-    },
+    youtube: ({ node: { url } }) => <YouTubePreview url={url} />,
+    step: ({ node: { number, description } }) => (
+      <Step stepNumber={number} description={description} />
+    ),
   },
 }
 
