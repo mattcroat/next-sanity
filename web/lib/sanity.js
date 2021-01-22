@@ -1,29 +1,32 @@
-import sanityClient from '@sanity/client'
-import sanityImage from '@sanity/image-url'
+import {
+  createClient,
+  createImageUrlBuilder,
+  createPortableTextComponent,
+} from 'next-sanity'
 
 import { Step } from '@/root/components/Step'
 import { YouTubePreview } from '@/root/components/YouTubePreview'
 
-const options = {
-  dataset: 'production',
-  projectId: 'qcs6cyzw',
+const config = {
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   useCdn: true,
 }
 
-const client = sanityClient(options)
-const imageUrlBuilder = sanityImage(client)
-
-export const serializers = {
-  types: {
-    youtube: ({ node: { url } }) => <YouTubePreview url={url} />,
-    step: ({ node: { number, description } }) => (
-      <Step stepNumber={number} description={description} />
-    ),
-  },
-}
-
 export function urlFor(source) {
-  return imageUrlBuilder.image(source)
+  return createImageUrlBuilder(config).image(source)
 }
 
-export default client
+export const PortableText = createPortableTextComponent({
+  ...config,
+  serializers: {
+    types: {
+      youtube: ({ node: { url } }) => <YouTubePreview url={url} />,
+      step: ({ node: { number, description } }) => (
+        <Step stepNumber={number} description={description} />
+      ),
+    },
+  },
+})
+
+export const sanityClient = createClient(config)

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import Link from 'next/link'
 
-import sanityClient from '@/root/lib/sanity'
+import { sanityClient } from '@/root/lib/sanity'
 
 export default function Index({ posts }) {
   return (

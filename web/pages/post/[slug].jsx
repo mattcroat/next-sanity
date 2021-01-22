@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
-import PortableText from '@sanity/block-content-to-react'
 
-import sanityClient, { serializers, urlFor } from '@/root/lib/sanity'
+import { sanityClient, PortableText, urlFor } from '@/root/lib/sanity'
 
 export default function Post({
   post: { title, mainImage, ingredients, body, publishedAt, keywords },
@@ -28,11 +27,7 @@ export default function Post({
         </>
       )}
 
-      <PortableText
-        blocks={body}
-        serializers={serializers}
-        {...sanityClient.config()}
-      />
+      <PortableText blocks={body} />
 
       <Keywords>
         {keywords &&
