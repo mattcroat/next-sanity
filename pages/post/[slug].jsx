@@ -69,9 +69,7 @@ const Keyword = styled.div`
   border-radius: 4px;
 `
 
-export async function getStaticProps({ params }) {
-  const { slug } = params
-
+export async function getStaticProps({ params: { slug } }) {
   const post = await sanityClient.fetch(`
     *[_type == 'post' && slug.current == '${slug}'][0] {
       _id,
