@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
-import { sanityClient, PortableText, urlFor } from '@/root/lib/sanity'
+import { getPostBySlug, getPostSlugs } from '@/root/lib/api'
+import { PortableText, urlFor } from '@/root/lib/sanity'
 
 export default function Post({
   post: { title, mainImage, ingredients, body, publishedAt, keywords },
@@ -70,17 +71,7 @@ const Keyword = styled.div`
 `
 
 export async function getStaticProps({ params: { slug } }) {
-  const post = await sanityClient.fetch(`
-    *[_type == 'post' && slug.current == '${slug}'][0] {
-      _id,
-      title,
-      mainImage,
-      ingredients,
-      body,
-      publishedAt,
-      keywords,
-    }
-  `)
+  const post = await getPostBySlug(slug)
 
   return {
     props: {
@@ -90,11 +81,7 @@ export async function getStaticProps({ params: { slug } }) {
 }
 
 export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(`
-    *[_type == 'post'] {
-      'slug': slug.current
-    }
-  `)
+  const posts = await getPostSlugs()
 
   return {
     paths: posts.map(({ slug }) => `/post/${slug}`),

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import Link from 'next/link'
 
-import { sanityClient } from '@/root/lib/sanity'
+import { getPosts } from '@/root/lib/api'
 
 export default function Index({ posts }) {
   return (
@@ -27,14 +27,7 @@ const Container = styled.main`
 `
 
 export async function getStaticProps() {
-  const posts = await sanityClient.fetch(`
-    *[_type == 'post'] {
-      _id,
-      title,
-      slug,
-      publishedAt
-    }
-  `)
+  const posts = await getPosts()
 
   return {
     props: {
