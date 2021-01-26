@@ -23,6 +23,6 @@ export default async function preview(req, res) {
 
   // redirect to the path from the fetched post
   // we don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  res.writeHead(307, { Location: `/post/${post.slug}` })
+  res.writeHead(307, { Location: `/posts/${post.slug}` })
   res.end()
 }

@@ -10,7 +10,7 @@ export default function Index({ posts }) {
       <ul>
         {posts.map(({ _id, title, slug, publishedAt }) => (
           <li key={_id}>
-            <Link href={`/post/${encodeURIComponent(slug.current)}`}>
+            <Link href={`/posts/${encodeURIComponent(slug.current)}`}>
               <a>{title}</a>
             </Link>
             <span> ({new Date(publishedAt).toDateString()})</span>
