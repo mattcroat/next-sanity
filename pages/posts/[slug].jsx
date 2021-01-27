@@ -1,18 +1,37 @@
 import styled from '@emotion/styled'
+import { useRouter } from 'next/router'
 
 import { Layout } from '@/root/components/Layout'
 import { getPostBySlug, getPostSlugs } from '@/root/lib/api'
-import { PortableText, urlFor } from '@/root/lib/sanity'
+import { PortableText, urlFor, usePreviewSubscription } from '@/root/lib/sanity'
 
-export default function Post({
-  post: { title, mainImage, ingredients, body, publishedAt, keywords },
-  preview,
-}) {
+export default function Post({ postData }) {
+  const { query } = useRouter()
+
+  const { data: post } = usePreviewSubscription(
+    `*[_type == 'post' && slug.current == $slug][0] {
+      _id,
+      title,
+      'slug': slug.current,
+      mainImage,
+      ingredients,
+      body,
+      publishedAt,
+      keywords,
+    }`,
+    {
+      params: { slug: postData?.slug },
+      initialData: postData,
+      enabled: query.preview !== undefined,
+    }
+  )
+
+  const { title, mainImage, ingredients, body, publishedAt, keywords } = post
   const time = new Date(publishedAt).toDateString()
   const src = urlFor(mainImage).url()
 
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Article>
         <h1>{title}</h1>
         <span>{time}</span>
@@ -76,22 +95,21 @@ const Keyword = styled.div`
   border-radius: 4px;
 `
 
-export async function getStaticProps({ params: { slug }, preview = false }) {
-  const post = await getPostBySlug(slug, preview)
+export async function getStaticProps({ params = {} }) {
+  const postData = await getPostBySlug(params.slug)
 
   return {
     props: {
-      preview,
-      post,
+      postData,
     },
   }
 }
 
 export async function getStaticPaths() {
-  const posts = await getPostSlugs()
+  const slugs = await getPostSlugs()
 
   return {
-    paths: posts.map(({ slug }) => `/posts/${slug}`),
+    paths: slugs.map(({ slug }) => `/posts/${slug}`),
     fallback: false,
   }
 }
