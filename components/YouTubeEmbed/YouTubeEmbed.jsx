@@ -1,6 +1,6 @@
 import { getYouTubeId } from '@/root/utils'
 
-export function YouTubePreview({ url }) {
+export function YouTubeEmbed({ url }) {
   const videoId = getYouTubeId(url)
 
   return (
