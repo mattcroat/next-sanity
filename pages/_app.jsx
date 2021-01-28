@@ -1,5 +1,7 @@
 import { Global, css } from '@emotion/react'
 
+import { Layout } from '@/root/components/Layout'
+
 const globalStyles = css`
   * {
     margin: 0;
@@ -55,7 +57,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Global styles={globalStyles} />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }

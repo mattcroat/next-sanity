@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 
-import { Layout } from '@/root/components/Layout'
 import { getPostBySlug, getPostSlugs } from '@/root/lib/api'
 import { PortableText, urlFor, usePreviewSubscription } from '@/root/lib/sanity'
 
@@ -31,30 +30,28 @@ export default function Post({ postData }) {
   const src = urlFor(mainImage).url()
 
   return (
-    <Layout>
-      <Article>
-        <h1>{title}</h1>
-        <span>{time}</span>
-        <img src={src} alt={title} />
+    <Article>
+      <h1>{title}</h1>
+      <span>{time}</span>
+      <img src={src} alt={title} />
 
-        {ingredients && (
-          <>
-            <h2>Ingredients</h2>
-            <Ingredients>
-              {ingredients.map(({ _key, amount, unit, ingredient }) => (
-                <Ingredient key={_key}>
-                  {amount} {unit} of {ingredient}
-                </Ingredient>
-              ))}
-            </Ingredients>
-          </>
-        )}
+      {ingredients && (
+        <>
+          <h2>Ingredients</h2>
+          <Ingredients>
+            {ingredients.map(({ _key, amount, unit, ingredient }) => (
+              <Ingredient key={_key}>
+                {amount} {unit} of {ingredient}
+              </Ingredient>
+            ))}
+          </Ingredients>
+        </>
+      )}
 
-        <PortableText blocks={body} />
+      <PortableText blocks={body} />
 
-        <Tags>{tags && tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Tags>
-      </Article>
-    </Layout>
+      <Tags>{tags && tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Tags>
+    </Article>
   )
 }
 
