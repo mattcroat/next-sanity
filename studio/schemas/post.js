@@ -67,10 +67,10 @@ export default {
       description: 'Write your post here',
     },
     {
-      name: 'keywords',
+      name: 'tags',
       type: 'array',
-      title: 'Keywords',
-      description: 'Enter some unique keywords used for search',
+      title: 'Tags',
+      description: 'Enter some unique tags used for search',
       of: [{ type: 'string' }],
       options: {
         layout: 'tags',

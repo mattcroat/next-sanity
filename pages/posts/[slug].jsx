@@ -17,7 +17,7 @@ export default function Post({ postData }) {
       ingredients,
       body,
       publishedAt,
-      keywords,
+      tags,
     }`,
     {
       params: { slug: postData?.slug },
@@ -26,7 +26,7 @@ export default function Post({ postData }) {
     }
   )
 
-  const { title, mainImage, ingredients, body, publishedAt, keywords } = post
+  const { title, mainImage, ingredients, body, publishedAt, tags } = post
   const time = new Date(publishedAt).toDateString()
   const src = urlFor(mainImage).url()
 
@@ -52,12 +52,7 @@ export default function Post({ postData }) {
 
         <PortableText blocks={body} />
 
-        <Keywords>
-          {keywords &&
-            keywords.map((keyword) => (
-              <Keyword key={keyword}>{keyword}</Keyword>
-            ))}
-        </Keywords>
+        <Tags>{tags && tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}</Tags>
       </Article>
     </Layout>
   )
@@ -78,12 +73,12 @@ const Ingredient = styled.li`
   }
 `
 
-const Keywords = styled.div`
+const Tags = styled.div`
   font-size: 1rem;
   margin: 3rem 0;
 `
 
-const Keyword = styled.div`
+const Tag = styled.div`
   height: 40px;
   display: inline-flex;
   align-items: center;
