@@ -1,7 +1,6 @@
 import React from 'react'
-import S from '@sanity/desk-tool/structure-builder'
 
-function PostPreview({ document: { displayed } }) {
+export function PostPreview({ document: { displayed } }) {
   if (!displayed?.slug?.current) {
     return <h1>The post needs a slug before it can be previewed.</h1>
   }
@@ -26,14 +25,3 @@ function PostPreview({ document: { displayed } }) {
     />
   )
 }
-
-export function getDefaultDocumentNode({ schemaType }) {
-  if (schemaType === 'post') {
-    return S.document().views([
-      S.view.form(),
-      S.view.component(PostPreview).title('Preview'),
-    ])
-  }
-}
-
-export default S.defaults()

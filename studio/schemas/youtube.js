@@ -1,4 +1,4 @@
-import { YouTubePreview } from '../components/YouTubePreview'
+import { YouTubeEmbed } from '@root/components/shared/YouTubeEmbed'
 
 export default {
   name: 'youtube',
@@ -16,6 +16,6 @@ export default {
     select: {
       url: 'url',
     },
-    component: YouTubePreview,
+    component: YouTubeEmbed,
   },
 }

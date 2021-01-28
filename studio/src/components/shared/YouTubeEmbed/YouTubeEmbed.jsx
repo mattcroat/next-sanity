@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { getYouTubeId } from '../../utils'
+import { getYouTubeId } from '@root/utils'
 
-export function YouTubePreview({ value }) {
+export function YouTubeEmbed({ value }) {
   const id = getYouTubeId(value.url)
   const url = `https://www.youtube.com/embed/${id}`
 
