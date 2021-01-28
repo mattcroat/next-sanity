@@ -11,7 +11,7 @@ Example site powered by Sanity.io CMS, and Next.js with live preview.
 
 1. `npm i` to install dependencies
 
-1. `cd studio && npx sanity init` to initialize a new project, with the Blog (schema) template from the options.
+1. `cd studio && npx sanity init` to initialize a new project, with the Blog (schema) template from the options, or do `cd studio && sanity install`.
 
 1. `sanity manage` to open the dashboard in the browser where you can get the **project id**, and **dataset** name to fill in `.env`.
 
