@@ -1,6 +1,6 @@
 # Sanity and Next.js
 
-Example site powered by Sanity.io CMS, and Next.js.
+Example site powered by Sanity.io CMS, and Next.js with live preview.
 
 **Example**
 
