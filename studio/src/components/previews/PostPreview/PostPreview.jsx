@@ -5,10 +5,7 @@ export function PostPreview({ document: { displayed } }) {
     return <h1>The post needs a slug before it can be previewed.</h1>
   }
 
-  const url =
-    process.env.NODE_ENV === 'production'
-      ? `/posts/${displayed?.slug?.current}?preview`
-      : `http://localhost:3000/posts/${displayed?.slug?.current}?preview`
+  const url = `/posts/${displayed?.slug?.current}?preview`
 
   return (
     <iframe
